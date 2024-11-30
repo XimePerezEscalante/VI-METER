@@ -6,11 +6,7 @@ import datetime
 import matplotlib.pyplot as plt
 import numpy as np
 
-from streamlit_option_menu import option_menu
-from streamlit_autorefresh import st_autorefresh
 from time import gmtime, strftime
-
-# PÁGINA 2
 
 with open( "style.css" ) as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
@@ -40,9 +36,6 @@ st.title("¡Hola" + " " + st.session_state['realname1'] + "!",anchor = False)
 st.header("Hoy:", anchor = False)
 st.subheader(today, anchor = False)
 
-
-
-##st.session_state
 today = datetime.date.today()
 
 todaycomplete = datetime.datetime.today()
@@ -66,24 +59,20 @@ with st.container():
     st.caption("Última medición tomada hace un minuto")
     if (todaycomplete.minute - 1) < 10:
         if (todaycomplete.hour - 1) < 10:
-            #st.write("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_0" + str(todaycomplete.hour) + ":0" + str(todaycomplete.minute - 1) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
             cursor.execute("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_0" + str(todaycomplete.hour) + ":0" + str(todaycomplete.minute - 1) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
             datos = cursor.fetchall()
             df = pd.DataFrame(datos,columns=cursor.column_names)
         else:
-            #st.write("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_" + str(todaycomplete.hour) + ":0" + str(todaycomplete.minute - 1) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
             cursor.execute("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_" + str(todaycomplete.hour) + ":0" + str(todaycomplete.minute - 1) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
             datos = cursor.fetchall()
             df = pd.DataFrame(datos,columns=cursor.column_names)
     else:
         if (todaycomplete.hour - 1) < 10:
-            #st.write("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_0" + str(todaycomplete.hour) + ":" + str(todaycomplete.minute - 1) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
             cursor.execute("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_0" + str(todaycomplete.hour) + ":" + str(todaycomplete.minute - 1) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
             datos = cursor.fetchall()
             df = pd.DataFrame(datos,columns=cursor.column_names)
         else:
             cursor.execute("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_" + str(todaycomplete.hour) + ":" + str(todaycomplete.minute - 1) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
-            #st.write("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_" + str(todaycomplete.hour) + ":" + str(todaycomplete.minute - 1) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
             datos = cursor.fetchall()
             df = pd.DataFrame(datos,columns=cursor.column_names)
 
@@ -131,29 +120,21 @@ with st.container():
         if (todaycomplete.minute) < 10:
             if (todaycomplete.hour) < 10:
                 cursor.execute("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_0" + str(todaycomplete.hour) + ":0" +  str(todaycomplete.minute) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
-                #st.write("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_0" + str(todaycomplete.hour) + ":0" +  str(todaycomplete.minute) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
                 datos = cursor.fetchall()
                 df = pd.DataFrame(datos,columns=cursor.column_names)
-                #st.dataframe(df)
             else:
                 cursor.execute("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_" + str(todaycomplete.hour) + ":0" +  str(todaycomplete.minute) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
-                #st.write()
                 datos = cursor.fetchall()
                 df = pd.DataFrame(datos,columns=cursor.column_names)
-                #st.dataframe(df)
         else:
             if (todaycomplete.hour) < 10:
                 cursor.execute("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_0" + str(todaycomplete.hour) + ":" +  str(todaycomplete.minute) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
-                #st.write()
                 datos = cursor.fetchall()
                 df = pd.DataFrame(datos,columns=cursor.column_names)
-                #st.dataframe(df)
             else:
                 cursor.execute("SELECT COUNT(*) as Total FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_" + str(todaycomplete.hour) + ":" +  str(todaycomplete.minute) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
-                #st.write()
                 datos = cursor.fetchall()
                 df = pd.DataFrame(datos,columns=cursor.column_names)
-                #st.dataframe(df)
         
         if df.iloc[0]['Total'] > 1:
             totalDatos = df.iloc[0]['Total']
@@ -164,27 +145,20 @@ with st.container():
                         cursor.execute("SELECT humidity, temperature FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_0" + str(todaycomplete.hour) + ":0" +  str(todaycomplete.minute) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
                         datos = cursor.fetchall()
                         df = pd.DataFrame(datos,columns=cursor.column_names)
-                        #st.dataframe(df)
 
                     else:
                         cursor.execute("SELECT humidity, temperature FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_" + str(todaycomplete.hour) + ":0" +  str(todaycomplete.minute) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
                         datos = cursor.fetchall()
                         df = pd.DataFrame(datos,columns=cursor.column_names)
-                        #st.dataframe(df)
-                    
-                    #promedioHumedad = promedioHumedad + df.iloc[cont]['humidity']
-                    #promedioTemperatura = promedioTemperatura + df.iloc[cont]['temperature']
                 else:
                     if (todaycomplete.hour) < 10:
                         cursor.execute("SELECT humidity, temperature FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_0" + str(todaycomplete.hour) + ":" +  str(todaycomplete.minute) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
                         datos = cursor.fetchall()
                         df = pd.DataFrame(datos,columns=cursor.column_names)
-                        #st.dataframe(df)
                     else:
                         cursor.execute("SELECT humidity, temperature FROM sensores WHERE timestamp LIKE '" +  str(fecha) + "_" + str(todaycomplete.hour) + ":" +  str(todaycomplete.minute) + "%'" + "AND id_dispositivo = '" + st.session_state['deviceid1'] + "';")
                         datos = cursor.fetchall()
                         df = pd.DataFrame(datos,columns=cursor.column_names)
-                        #st.dataframe(df)
 
                 promedioHumedad = df.iloc[cont]['humidity']
                 promedioTemperatura = df.iloc[cont]['temperature']
