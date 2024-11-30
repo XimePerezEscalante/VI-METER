@@ -81,7 +81,6 @@ with registro_tab:
                         connection.commit()
                         st.toast("Usuario registrado con éxito", icon = "🥳")
 
-                        #st.session_state
                         st.switch_page("pages/graficas.py")
 
 
@@ -119,6 +118,3 @@ with inicio_tab:
                             st.error("Contraseña incorrecta")
                     else:
                         st.error("El usuario que ingresaste no existe")
-        
-
-
